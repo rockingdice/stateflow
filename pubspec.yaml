@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  json_annotation: 4.0.0-nullsafety.0
+  json_annotation: 4.0.0
 
 dev_dependencies:
   flutter_test:
