@@ -11,7 +11,7 @@ part 'flow.g.dart';
 /// could be used for FlowWidget to rebuild.
 ///
 
-class FlowState {
+class _FlowState {
   StreamController<Null>? _controller;
 
   StreamController<Null>? get controller {
@@ -43,32 +43,25 @@ class FlowState {
 /// FlowValue<bool>
 /// FlowValue<String>
 ///
+@JsonSerializable(genericArgumentFactories: true)
+class FlowValue<Type> extends _FlowState {
+  Type value;
 
-@JsonSerializable()
-class FlowValue<Type> extends FlowState {
-  @JsonKey(fromJson: _dataFromJson, toJson: _dataToJson)
-  Type data;
-
-  FlowValue(Type data) : data = data;
-
-  set value(Type d) => data = d;
-
-  @JsonKey(ignore: true)
-  Type get value => data;
+  FlowValue(this.value);
 
   @override
   String toString() {
-    return "FlowValue:($data)";
+    return "FlowValue:($value)";
   }
 
-  static Type _dataFromJson<Type>(Type input) => input;
+  factory FlowValue.fromJson(
+    Map<String, dynamic> json,
+    Type Function(Object? json) fromJsonT,
+  ) =>
+      _$FlowValueFromJson(json, fromJsonT);
 
-  static Type _dataToJson<Type>(Type input) => input;
-
-  factory FlowValue.fromJson(Map<String, dynamic> json) =>
-      _$FlowValueFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FlowValueToJson(this);
+  Map<String, dynamic> toJson(Object Function(Type value) toJsonT) =>
+      _$FlowValueToJson(this, toJsonT);
 }
 
 /// FlowWidget
@@ -77,11 +70,11 @@ class FlowValue<Type> extends FlowState {
 typedef Widget FlowWidgetBuilder(BuildContext context);
 
 class FlowWidget extends StatefulWidget {
-  final FlowState _state;
+  final _FlowState _state;
   final FlowWidgetBuilder _builder;
 
   const FlowWidget(
-      {Key? key, required FlowState state, required FlowWidgetBuilder builder})
+      {Key? key, required _FlowState state, required FlowWidgetBuilder builder})
       : _state = state,
         _builder = builder,
         super(key: key);
@@ -124,4 +117,112 @@ class _FlowWidgetState extends State<FlowWidget> {
   Widget build(BuildContext context) {
     return widget._builder(context);
   }
+}
+
+@JsonSerializable()
+class FlowInt extends _FlowState {
+  int value;
+
+  FlowInt(this.value);
+
+  factory FlowInt.fromJson(Map<String, dynamic> json) =>
+      _$FlowIntFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowIntToJson(this);
+}
+
+@JsonSerializable()
+class FlowDouble extends _FlowState {
+  double value;
+
+  FlowDouble(this.value);
+
+  factory FlowDouble.fromJson(Map<String, dynamic> json) =>
+      _$FlowDoubleFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowDoubleToJson(this);
+}
+
+@JsonSerializable()
+class FlowString extends _FlowState {
+  String value;
+
+  FlowString(this.value);
+
+  factory FlowString.fromJson(Map<String, dynamic> json) =>
+      _$FlowStringFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowStringToJson(this);
+}
+
+@JsonSerializable()
+class FlowBool extends _FlowState {
+  bool value;
+
+  FlowBool(this.value);
+
+  factory FlowBool.fromJson(Map<String, dynamic> json) =>
+      _$FlowBoolFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowBoolToJson(this);
+}
+
+@JsonSerializable()
+class FlowListString extends _FlowState {
+  List<String> value;
+
+  FlowListString(this.value);
+
+  factory FlowListString.fromJson(Map<String, dynamic> json) =>
+      _$FlowListStringFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowListStringToJson(this);
+}
+
+@JsonSerializable()
+class FlowListNum extends _FlowState {
+  List<num> value;
+
+  FlowListNum(this.value);
+
+  factory FlowListNum.fromJson(Map<String, dynamic> json) =>
+      _$FlowListNumFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowListNumToJson(this);
+}
+
+@JsonSerializable()
+class FlowMap extends _FlowState {
+  Map<String, dynamic> value;
+
+  FlowMap(this.value);
+
+  factory FlowMap.fromJson(Map<String, dynamic> json) =>
+      _$FlowMapFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowMapToJson(this);
+}
+
+@JsonSerializable()
+class FlowSetString extends _FlowState {
+  Set<String> value;
+
+  FlowSetString(this.value);
+
+  factory FlowSetString.fromJson(Map<String, dynamic> json) =>
+      _$FlowSetStringFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowSetStringToJson(this);
+}
+
+@JsonSerializable()
+class FlowSetInt {
+  Set<int> value;
+
+  FlowSetInt(this.value);
+
+  factory FlowSetInt.fromJson(Map<String, dynamic> json) =>
+      _$FlowSetIntFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowSetIntToJson(this);
 }
