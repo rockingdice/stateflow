@@ -118,3 +118,9 @@ Map<String, dynamic> _$FlowSetIntToJson(FlowSetInt instance) =>
     <String, dynamic>{
       'value': instance.value.toList(),
     };
+
+FlowVoid _$FlowVoidFromJson(Map<String, dynamic> json) {
+  return FlowVoid();
+}
+
+Map<String, dynamic> _$FlowVoidToJson(FlowVoid instance) => <String, dynamic>{};

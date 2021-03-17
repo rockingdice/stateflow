@@ -226,3 +226,14 @@ class FlowSetInt {
 
   Map<String, dynamic> toJson() => _$FlowSetIntToJson(this);
 }
+
+@JsonSerializable()
+class FlowVoid {
+
+  FlowVoid();
+
+  factory FlowVoid.fromJson(Map<String, dynamic> json) =>
+      _$FlowVoidFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowVoidToJson(this);
+}
