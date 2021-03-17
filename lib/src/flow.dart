@@ -216,7 +216,7 @@ class FlowSetString extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowSetInt {
+class FlowSetInt extends _FlowState {
   Set<int> value;
 
   FlowSetInt(this.value);
@@ -228,8 +228,7 @@ class FlowSetInt {
 }
 
 @JsonSerializable()
-class FlowVoid {
-
+class FlowVoid extends _FlowState {
   FlowVoid();
 
   factory FlowVoid.fromJson(Map<String, dynamic> json) =>
