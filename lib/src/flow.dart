@@ -99,6 +99,7 @@ class _FlowWidgetState extends State<FlowWidget> {
     for (var sub in _subscriptions) {
       sub?.cancel();
     }
+    _subscriptions.clear();
     if (widget._state != null) {
       var sub = widget._state!.controller!.stream.listen((_) {
         setState(() {});
@@ -132,6 +133,7 @@ class _FlowWidgetState extends State<FlowWidget> {
     for (var sub in _subscriptions) {
       sub?.cancel();
     }
+    _subscriptions.clear();
     super.dispose();
   }
 
