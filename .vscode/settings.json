@@ -1,0 +1,11 @@
+{
+    "workbench.colorCustomizations": {
+        "[Tomorrow Night Blue]": {
+            "tab.activeBackground": "#327be9",
+            "tab.inactiveBackground": "#0000ff"
+        },
+        "activityBar.background": "#3A0C7D",
+        "titleBar.activeBackground": "#5211B0",
+        "titleBar.activeForeground": "#FCFAFF"
+    }
+}

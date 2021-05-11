@@ -70,12 +70,21 @@ class FlowValue<Type> extends _FlowState {
 typedef Widget FlowWidgetBuilder(BuildContext context);
 
 class FlowWidget extends StatefulWidget {
-  final _FlowState _state;
+  final _FlowState? _state;
+  final List<_FlowState>? _states;
   final FlowWidgetBuilder _builder;
 
   const FlowWidget(
-      {Key? key, required _FlowState state, required FlowWidgetBuilder builder})
-      : _state = state,
+      {Key? key,
+      _FlowState? state,
+      List<_FlowState>? states,
+      required FlowWidgetBuilder builder})
+      : assert(
+            (state != null && states == null) ||
+                (state == null && states != null),
+            'can only use either state or states!'),
+        _state = state,
+        _states = states,
         _builder = builder,
         super(key: key);
 
@@ -84,14 +93,25 @@ class FlowWidget extends StatefulWidget {
 }
 
 class _FlowWidgetState extends State<FlowWidget> {
-  StreamSubscription<Null>? _subscription;
+  List<StreamSubscription<Null>?> _subscriptions = [];
 
   void updateSubscription() {
-    _subscription?.cancel();
-
-    _subscription = widget._state.controller!.stream.listen((_) {
-      setState(() {});
-    });
+    for (var sub in _subscriptions) {
+      sub?.cancel();
+    }
+    if (widget._state != null) {
+      var sub = widget._state!.controller!.stream.listen((_) {
+        setState(() {});
+      });
+      _subscriptions.add(sub);
+    } else if (widget._states != null) {
+      for (var s in widget._states!) {
+        var sub = s.controller!.stream.listen((_) {
+          setState(() {});
+        });
+        _subscriptions.add(sub);
+      }
+    }
   }
 
   @override
@@ -109,7 +129,9 @@ class _FlowWidgetState extends State<FlowWidget> {
 
   @override
   void dispose() {
-    _subscription?.cancel();
+    for (var sub in _subscriptions) {
+      sub?.cancel();
+    }
     super.dispose();
   }
 
