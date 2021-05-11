@@ -11,7 +11,7 @@ part 'flow.g.dart';
 /// could be used for FlowWidget to rebuild.
 ///
 
-class _FlowState {
+class FlowState {
   StreamController<Null>? _controller;
 
   StreamController<Null>? get controller {
@@ -44,7 +44,7 @@ class _FlowState {
 /// FlowValue<String>
 ///
 @JsonSerializable(genericArgumentFactories: true)
-class FlowValue<Type> extends _FlowState {
+class FlowValue<Type> extends FlowState {
   Type value;
 
   FlowValue(this.value);
@@ -70,14 +70,14 @@ class FlowValue<Type> extends _FlowState {
 typedef Widget FlowWidgetBuilder(BuildContext context);
 
 class FlowWidget extends StatefulWidget {
-  final _FlowState? _state;
-  final List<_FlowState>? _states;
+  final FlowState? _state;
+  final List<FlowState>? _states;
   final FlowWidgetBuilder _builder;
 
   const FlowWidget(
       {Key? key,
-      _FlowState? state,
-      List<_FlowState>? states,
+      FlowState? state,
+      List<FlowState>? states,
       required FlowWidgetBuilder builder})
       : assert(
             (state != null && states == null) ||
@@ -142,7 +142,7 @@ class _FlowWidgetState extends State<FlowWidget> {
 }
 
 @JsonSerializable()
-class FlowInt extends _FlowState {
+class FlowInt extends FlowState {
   int value;
 
   FlowInt(this.value);
@@ -154,7 +154,7 @@ class FlowInt extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowDouble extends _FlowState {
+class FlowDouble extends FlowState {
   double value;
 
   FlowDouble(this.value);
@@ -166,7 +166,7 @@ class FlowDouble extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowString extends _FlowState {
+class FlowString extends FlowState {
   String value;
 
   FlowString(this.value);
@@ -178,7 +178,7 @@ class FlowString extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowBool extends _FlowState {
+class FlowBool extends FlowState {
   bool value;
 
   FlowBool(this.value);
@@ -190,7 +190,7 @@ class FlowBool extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowListString extends _FlowState {
+class FlowListString extends FlowState {
   List<String> value;
 
   FlowListString(this.value);
@@ -202,7 +202,7 @@ class FlowListString extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowListNum extends _FlowState {
+class FlowListNum extends FlowState {
   List<num> value;
 
   FlowListNum(this.value);
@@ -214,7 +214,7 @@ class FlowListNum extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowMap extends _FlowState {
+class FlowMap extends FlowState {
   Map<String, dynamic> value;
 
   FlowMap(this.value);
@@ -226,7 +226,7 @@ class FlowMap extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowSetString extends _FlowState {
+class FlowSetString extends FlowState {
   Set<String> value;
 
   FlowSetString(this.value);
@@ -238,7 +238,7 @@ class FlowSetString extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowSetInt extends _FlowState {
+class FlowSetInt extends FlowState {
   Set<int> value;
 
   FlowSetInt(this.value);
@@ -250,7 +250,7 @@ class FlowSetInt extends _FlowState {
 }
 
 @JsonSerializable()
-class FlowVoid extends _FlowState {
+class FlowVoid extends FlowState {
   FlowVoid();
 
   factory FlowVoid.fromJson(Map<String, dynamic> json) =>
