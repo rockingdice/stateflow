@@ -1,0 +1,20 @@
+{
+    "workbench.colorCustomizations": {
+        "[Tomorrow Night Blue]": {
+            "tab.activeBackground": "#327be9",
+            "tab.inactiveBackground": "#0000ff"
+        },
+        "activityBar.background": "#3A0C7D",
+        "titleBar.activeBackground": "#5211B0",
+        "titleBar.activeForeground": "#FCFAFF"
+    },
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // Remove .fvm files from search
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+}
